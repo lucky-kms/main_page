@@ -11,8 +11,10 @@ const prdCardArea = styled.div`
 function Page1(){
 
     return (
-        <section className="section">
-            <p className="ft2">메인5 page 입니다.</p>
+        <section className="section section5">
+            <article className="article">
+                <h2 className="ft2">메인5 page 입니다.</h2>
+            </article>
         </section>
     )
 }

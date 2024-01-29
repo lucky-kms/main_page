@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Route, Routes, Link } from 'react-router-dom';
-import Page1 from './Page1';
-import Page2 from './Page2';
-import Page3 from './Page3';
-import Page4 from './Page4';
-import Page5 from './Page5';
+
 import './main.scss';
 
 const Menu = styled.div`
@@ -30,37 +26,72 @@ const Menu = styled.div`
     }
 `;
 
-function Gnb() {
-    return (
-        <>
-            <Menu>
-                <ul>
-                    <li>
-                        <Link to="/page1" className="ft2" >메뉴1</Link>
-                    </li>
-                    <li>
-                        <Link to="/page2" >메뉴2</Link>
-                    </li>
-                    <li>
-                        <Link to="/page3" >메뉴3</Link>
-                    </li>
-                    <li>
-                        <Link to="/page4" >메뉴4</Link>
-                    </li>
-                    <li>
-                        <Link to="/page5" >메뉴2</Link>
-                    </li>
-                </ul>
-            </Menu>
+const arrGnb = () => {
+    const arrList = [
+      {
+        id: 1,
+        pagename: '메뉴1',
+        pageurl: 'page1'
+      },
+      {
+        id: 2,
+        pagename: '메뉴2 : Rest API : fecth API ',
+        pageurl: 'page2'
+      },
+      {
+        id: 3,
+        pagename: '메뉴3 : Rest API : Axios API ',
+        pageurl: 'page3'
+      },
+      {
+        id: 4,
+        pagename: '메뉴4',
+        pageurl: 'page4'
+      },
+      {
+        id: 5,
+        pagename: '메뉴5',
+        pageurl: 'page5'
+      }
+    ];
 
-            <Routes>
-                <Route path="/page1" element={<Page1/>} />
-                <Route path="/page2" element={<Page2/>} />
-                <Route path="/page3" element={<Page3/>} />
-                <Route path="/page4" element={<Page4/>} />
-                <Route path="/page5" element={<Page5/>} />
-            </Routes>
-        </>
+    return arrList;
+}
+
+function Gnb() {
+    // Gnb
+    const list = arrGnb();
+
+    return (
+      <>
+        <Menu>
+          <ul>
+            {
+              list.map(menu => (
+                <li key={menu.id} >
+                  <Link to={menu.pageurl}>{menu.pagename}</Link>
+                </li>
+              ))
+
+            }
+            {/* <li>
+                <Link to="/page1" className="ft2" >메뉴1</Link>
+            </li>
+            <li>
+                <Link to="/page2">메뉴2</Link>
+            </li>
+            <li>
+                <Link to="/page3">메뉴3</Link>
+            </li>
+            <li>
+                <Link to="/page4">메뉴4</Link>
+            </li>
+            <li>
+                <Link to="/page5">메뉴5</Link>
+            </li> */}
+          </ul>
+        </Menu>
+      </>
     )
 }
 

@@ -17,15 +17,22 @@ const Section = styled.div`
     overflow-x:auto;
 
     .article {
+        flex:none;
         width:800px;
+    }
+
+    .article:nth-child(even) {
+        background-color:#222;
     }
 `
 
 function Page1(){
 
     return (
-        <Section className="section">
-            <p className="ft2">메인 page1 입니다.</p>
+        <Section className="section section1">
+            <article className="article">
+                <h2 className="ft2">메인1 page 입니다.</h2>
+            </article>
             <article className="article">상품 페이지</article>
             <article className="article">상품 페이지</article>
             <article className="article">상품 페이지</article>

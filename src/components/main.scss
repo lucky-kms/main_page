@@ -9,9 +9,14 @@ $m_ltblue:lightblue;
 a {
     text-decoration: none;
 }
-
+// font-size
 .ft2 {
     font-size:2rem;
+    color:$m_black;
+}
+
+.ft1_5 {
+    font-size:1.5rem;
     color:$m_black;
 }
 
@@ -28,11 +33,17 @@ a {
     width:100vw;
     height:100vh;
     padding-left:20rem;
-    background-color:#d8d8d8;
+    background-color:#efefef;
 }
 
 .article {
     width:100vw;
     height:100vh;
-    background-color:blue;
+    padding:3rem;
+
+    h2 {
+        padding:0 0 1rem ;
+        border-bottom:1px solid #000;
+        margin:0 0 2rem;
+    }
 }
