@@ -1,4 +1,5 @@
 import React from 'react';
+import './main.scss';
 import styled from 'styled-components';
 import { Route, Routes, Link } from 'react-router-dom';
 
@@ -12,13 +13,12 @@ const Menu = styled.div`
     height:100vh;
     color:red;
     font-size:2rem;
-    background-color:#070707;
+    background-color:#dee2e6;
     margin:0 auto;
     z-index:100;
 
     ul > li > a {
         display:block;
-        background-color:lightgreen;
         padding-left:2.5rem;
         padding-top:0.5rem;
         padding-bottom:0.5rem;
@@ -69,7 +69,7 @@ function Gnb() {
             {
               list.map(menu => (
                 <li key={menu.id} >
-                  <Link to={menu.pageurl}>{menu.pagename}</Link>
+                  <Link className="mlink" to={menu.pageurl}>{menu.pagename}</Link>
                 </li>
               ))
 

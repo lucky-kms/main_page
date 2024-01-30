@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import BtnArea from './BtnArea';
 import styled from 'styled-components';
 import './main.scss';
 
@@ -9,15 +10,30 @@ const PrdCardArea = styled.div`
     justify-content:space-between;
 `;
 
-const Prdwrap = styled.ul`
+const Prdwrap = styled.table`
     display:flex;
     align-items:flex-start;
     justify-content:center;
     flex-direction:column;
     width:100%;
+    margin:1rem 1rem 2rem;
+
+    caption {
+        font-size:0;
+    }
+
+    tr:nth-child(even) {
+        background-color:#ddd;
+    }
+
+    th, td {
+        font-size:1.25rem;
+        padding: 0.5rem;;
+        border-bottom:1px solid #000;
+    }
 `
 
-const Prdlist = styled.li`
+const Prdlist = styled.tr`
     font-size:1.5rem;
     list-style: none;
     color:#555;
@@ -26,14 +42,14 @@ const Prdlist = styled.li`
     color:${(prop) => (prop.listcolor)};
   
 
-    &:first-child{
+    /* &:first-child{
         margin-top:2rem;
         background-color:#ddd;
         
         span:first-child {
             padding-left:1rem;
         }
-    }
+    } */
 
     &:last-child{
         margin-bottom:2rem;
@@ -66,14 +82,23 @@ const Prdlist = styled.li`
 function Page1(){
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch('https://jsonplaceholder.typicode.com/users');
-            const result = res.json();
-            return result;
+    function apiCallback() {
+        try {
+            const fetchData = async () => {
+                const res = await fetch('https://jsonplaceholder.typicode.com/users');
+                const result = res.json();
+                console.log('출력');
+                return result;
+            }
+    
+            fetchData().then(res => setData(res));
+        }catch(e) {
+            console.log('error : ', e);
         }
+    }
 
-        fetchData().then(res => setData(res));
+    useEffect(() => {
+        apiCallback();
     },[]);
 
     return (
@@ -81,8 +106,32 @@ function Page1(){
             <article className="article">
                 <h2 className="ft2">메인2 page</h2>
                 <p className="ft1_5">REST API : fetch API</p>
-
+                
                 <Prdwrap>
+                    <caption>JSON USER : TABLE</caption>
+                    <colgroup>
+                        <col/>
+                        <col/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                        {/* {
+                            data.map((d, index) => (
+                                <Prdlist key={index}><span>{d.key[username]}</span> <span>{}</span></Prdlist>
+                            ))
+                        } */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data.map(d => (
+                                <tr key={d.id}><td>{d.name}</td> <td>{d.username}</td></tr>
+                            ))
+                        }
+                    </tbody>
+                </Prdwrap>
+
+                {/* <Prdwrap>
                     <Prdlist listcolor="blue"><span>이름</span><span>회원</span></Prdlist>
                     
                     {
@@ -90,7 +139,10 @@ function Page1(){
                             <Prdlist key={d.id}><span>{d.name}</span> <span>{d.name}</span></Prdlist>
                         ))
                     }
-                 </Prdwrap>
+                </Prdwrap> */}
+
+
+                <BtnArea  onClick={apiCallback} >새로고침1</BtnArea>
 
             </article>
         </section>

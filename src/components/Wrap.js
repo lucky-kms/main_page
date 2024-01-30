@@ -3,7 +3,7 @@ import 'main.scss';
 
 function Wrap(){
     return (
-
+        <></>
     );
 }
 

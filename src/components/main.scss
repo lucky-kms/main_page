@@ -1,10 +1,15 @@
 @import 'scss-reset/reset';
 
-$m_black:#111;
-$m_blue:blue;
-$m_red:red;
-$m_orange:orange;
-$m_ltblue:lightblue;
+$m_black:#212529;
+$m_blue:#339af0;
+$m_blue4:#4dabf7;
+$m_blue7:#1c7ed6;
+$m_indigo6:#4c6ef5;
+$m_red:#f03e3e;
+$m_orange:#f59f00;
+$m_ltblue:#d0ebff;
+$m_gray0:#f8f9fa;
+$m_gray:#ced4da;
 
 a {
     text-decoration: none;
@@ -34,6 +39,7 @@ a {
     height:100vh;
     padding-left:20rem;
     background-color:#efefef;
+    box-sizing:border-box;
 }
 
 .article {
@@ -45,5 +51,24 @@ a {
         padding:0 0 1rem ;
         border-bottom:1px solid #000;
         margin:0 0 2rem;
+    }
+}
+
+// menu
+.mlink {
+    color:$m_indigo6;
+    background-color:$m_gray;
+}
+
+// button
+.btnDefault {
+    min-width:10rem;
+    height:3rem;
+    font-size:1.25rem;
+    color:$m_gray0;
+    background-color:$m_blue4;
+
+    &:active {
+        background-color:$m_blue7;
     }
 }
