@@ -82,7 +82,7 @@ function Page1(){
     return (
         <section className="section section3">
             <article className="article">
-                <h2 className="ft2">메인3 page </h2>
+                <h2 className="ft2">탈퇴목록 </h2>
                 <p className="ft1_5">REST API : Axios API</p>
 
                 <Prdwrap>

@@ -4,6 +4,12 @@ import BtnArea from './BtnArea';
 import styled from 'styled-components';
 import './main.scss';
 
+/**
+ * method : useState() : 함수 안에서 즉시 사용.
+ * layout : table
+ * style : scss 공통 + styled-components : 개별 스타일
+ */
+
 const PrdCardArea = styled.div`
     display:flex;
     align-items:center;
@@ -11,26 +17,55 @@ const PrdCardArea = styled.div`
 `;
 
 const Prdwrap = styled.table`
-    display:flex;
+    /* display:flex;
     align-items:flex-start;
     justify-content:center;
-    flex-direction:column;
+    flex-direction:column; */
     width:100%;
-    margin:1rem 1rem 2rem;
+    border-top-width:2px;
+    border-style:solid;
+
 
     caption {
         font-size:0;
     }
 
-    tr:nth-child(even) {
-        background-color:#ddd;
+    thead, tbody {
+        width:100%;
+    }
+
+    tr td {
+        background-color:#f1f3f5;
+    }
+
+    tr:nth-child(even) td {
+        background-color:#dee2e6;
     }
 
     th, td {
         font-size:1.25rem;
         padding: 0.5rem;;
-        border-bottom:1px solid #000;
+       
+        
+        &:nth-child(1){
+            width:10%;
+        }
+        &:nth-child(2){
+            width:30%;
+        }
+        &:nth-child(3){
+            width:60%;
+        }
     }
+
+    th {
+        font-size:1.8rem;
+        font-weight:bold;
+        color:#495057;
+        border-bottom:1px solid #dee2e6;
+        background-color:#dee2e6;
+    }
+    
 `
 
 const Prdlist = styled.tr`
@@ -82,16 +117,39 @@ const Prdlist = styled.tr`
 function Page1(){
     const [data, setData] = useState([]);
 
-    function apiCallback() {
+    // table data title
+    const dataIdx = [
+        {
+            id:0,
+            name:'kms',
+            title:'tbl뽀개기',
+        },
+        {
+            id:1,
+            name:'mms',
+            title:'tbl 두번째',
+        }
+    ];
+
+    const nametest = Object.keys(dataIdx[0]);
+    console.log(nametest);
+    // const dataObj = data;
+    // const objTitle = Object.keys(dataObj[0]);
+    
+    // console.log('objTitle : ', objTitle);
+
+    const apiCallback = () => {
         try {
             const fetchData = async () => {
                 const res = await fetch('https://jsonplaceholder.typicode.com/users');
                 const result = res.json();
-                console.log('출력');
+                console.log('출력 확인');
+
                 return result;
             }
     
-            fetchData().then(res => setData(res));
+            fetchData()
+            .then(res => setData(res));
         }catch(e) {
             console.log('error : ', e);
         }
@@ -104,28 +162,29 @@ function Page1(){
     return (
         <section className="section section2">
             <article className="article">
-                <h2 className="ft2">메인2 page</h2>
-                <p className="ft1_5">REST API : fetch API</p>
+                <h2 className="ft2">회원목록</h2>
+                <p className="ft1_5 mb30">REST API : fetch API</p>
                 
                 <Prdwrap>
                     <caption>JSON USER : TABLE</caption>
                     <colgroup>
                         <col/>
                         <col/>
+                        <col/>
                     </colgroup>
                     <thead>
                         <tr>
-                        {/* {
-                            data.map((d, index) => (
-                                <Prdlist key={index}><span>{d.key[username]}</span> <span>{}</span></Prdlist>
+                        {
+                            nametest.map((dd, index) => (
+                              <th>{dd}</th>
                             ))
-                        } */}
+                        }
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            data.map(d => (
-                                <tr key={d.id}><td>{d.name}</td> <td>{d.username}</td></tr>
+                            data.map((d, index) => (
+                                <tr key={d.id}><td>{d.id}</td> <td>{d.name}</td> <td>{d.username}</td></tr>
                             ))
                         }
                     </tbody>
@@ -140,9 +199,7 @@ function Page1(){
                         ))
                     }
                 </Prdwrap> */}
-
-
-                <BtnArea  onClick={apiCallback} >새로고침1</BtnArea>
+                <BtnArea btnEvent={apiCallback}>새로고침</BtnArea>
 
             </article>
         </section>

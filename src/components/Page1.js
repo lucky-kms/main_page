@@ -31,7 +31,7 @@ function Page1(){
     return (
         <Section className="section section1">
             <article className="article">
-                <h2 className="ft2">메인1 page 입니다.</h2>
+                <h2 className="ft2">가입</h2>
             </article>
             <article className="article">상품 페이지</article>
             <article className="article">상품 페이지</article>

@@ -13,7 +13,7 @@ function Page1(){
     return (
         <section className="section section5">
             <article className="article">
-                <h2 className="ft2">메인5 page 입니다.</h2>
+                <h2 className="ft2">QnA</h2>
             </article>
         </section>
     )

@@ -6,16 +6,19 @@ const BtnAreaflex = styled.div`
     display:flex;
     align-items:center;
     justify-content:flex-start;
+    padding:5rem 0 3rem;
 `;
 
 const BtnDefault = styled.button`
-    align-self: flex-end;
+    margin-left:auto;
 `
 
-function BtnArea({children}) {
+function BtnArea(props) {
+    const {children, btnEvent} = props;
+
     return (
         <BtnAreaflex>
-            <BtnDefault className="btnDefault">{children}</BtnDefault>
+            <BtnDefault className="btnDefault" onClick={ () => btnEvent()} >{children}</BtnDefault>
         </BtnAreaflex>
     )
 }

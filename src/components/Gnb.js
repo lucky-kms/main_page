@@ -11,52 +11,60 @@ const Menu = styled.div`
     left:0;
     width:20rem;
     height:100vh;
-    color:red;
     font-size:2rem;
-    background-color:#dee2e6;
+    background-color:#4c6ef5;
     margin:0 auto;
     z-index:100;
 
     ul > li > a {
         display:block;
         padding-left:2.5rem;
-        padding-top:0.5rem;
-        padding-bottom:0.5rem;
+        padding-top:1.2rem;
+        padding-bottom:1.2rem;
         font-size:1.5rem;
     }
 `;
+
+const Hometext = styled.div`
+  text-align:center;
+  height:6.3rem;
+  line-height:6.3rem;
+  color:#fff;
+`
 
 const arrGnb = () => {
     const arrList = [
       {
         id: 1,
-        pagename: '메뉴1',
+        pagename: '가입',
         pageurl: 'page1'
       },
       {
         id: 2,
-        pagename: '메뉴2 : Rest API : fecth API ',
+        pagename: '회원목록 ',
         pageurl: 'page2'
       },
       {
         id: 3,
-        pagename: '메뉴3 : Rest API : Axios API ',
+        pagename: '탈퇴목록 : Axios API ',
         pageurl: 'page3'
       },
       {
         id: 4,
-        pagename: '메뉴4',
+        pagename: '재가입자',
         pageurl: 'page4'
       },
       {
         id: 5,
-        pagename: '메뉴5',
+        pagename: 'QnA',
         pageurl: 'page5'
       }
     ];
 
     return arrList;
 }
+
+
 
 function Gnb() {
     // Gnb
@@ -65,6 +73,7 @@ function Gnb() {
     return (
       <>
         <Menu>
+          <Hometext>HOME</Hometext>
           <ul>
             {
               list.map(menu => (
