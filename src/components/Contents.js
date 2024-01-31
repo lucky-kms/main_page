@@ -14,8 +14,6 @@ const content = styled.div`
     width:calc(100% - 20rem);
     height:100%;
     padding-left:20rem;
-    overflow-x:auto;
-    overflow-y:hidden;
 `;
 
 function Contents(){

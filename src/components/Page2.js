@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import BtnArea from './BtnArea';
 import styled from 'styled-components';
 import './main.scss';
+import TitleBox from './TitleBox2';
 
 /**
  * method : useState() : 함수 안에서 즉시 사용.
  * layout : table
  * style : scss 공통 + styled-components : 개별 스타일
+ * component 끼리 이벤트 props 전달
  */
 
 const PrdCardArea = styled.div`
@@ -16,14 +18,14 @@ const PrdCardArea = styled.div`
     justify-content:space-between;
 `;
 
+
 const Prdwrap = styled.table`
     /* display:flex;
     align-items:flex-start;
     justify-content:center;
     flex-direction:column; */
     width:100%;
-    border-top-width:2px;
-    border-style:solid;
+    background-color:#fff;
 
 
     caption {
@@ -35,16 +37,17 @@ const Prdwrap = styled.table`
     }
 
     tr td {
-        background-color:#f1f3f5;
+        background-color:inherit;
     }
 
     tr:nth-child(even) td {
-        background-color:#dee2e6;
+        background-color:inherit;
     }
 
     th, td {
         font-size:1.25rem;
-        padding: 0.5rem;;
+        padding: 0.5rem;
+        border-bottom:1px solid #E8E8E8;
        
         
         &:nth-child(1){
@@ -59,17 +62,17 @@ const Prdwrap = styled.table`
     }
 
     th {
-        font-size:1.8rem;
+        font-size:1.3rem;
         font-weight:bold;
         color:#495057;
         border-bottom:1px solid #dee2e6;
-        background-color:#dee2e6;
+        background-color:inherit;
     }
     
 `
 
 const Prdlist = styled.tr`
-    font-size:1.5rem;
+    font-size:1.25rem;
     list-style: none;
     color:#555;
     border-bottom:1px solid #d8d8d8;
@@ -131,8 +134,10 @@ function Page1(){
         }
     ];
 
-    const nametest = Object.keys(dataIdx[0]);
+    
+    const  nametest = Object.keys(dataIdx[0]);
     console.log(nametest);
+   
     // const dataObj = data;
     // const objTitle = Object.keys(dataObj[0]);
     
@@ -165,30 +170,33 @@ function Page1(){
                 <h2 className="ft2">회원목록</h2>
                 <p className="ft1_5 mb30">REST API : fetch API</p>
                 
-                <Prdwrap>
-                    <caption>JSON USER : TABLE</caption>
-                    <colgroup>
-                        <col/>
-                        <col/>
-                        <col/>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                        {
-                            nametest.map((dd, index) => (
-                              <th>{dd}</th>
-                            ))
-                        }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            data.map((d, index) => (
-                                <tr key={d.id}><td>{d.id}</td> <td>{d.name}</td> <td>{d.username}</td></tr>
-                            ))
-                        }
-                    </tbody>
-                </Prdwrap>
+                <div className="itemGroup">
+                    <TitleBox>사용 : REST API : fetch API</TitleBox>
+                    <Prdwrap>
+                        <caption>JSON USER : TABLE</caption>
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            {
+                                nametest.map((dd, index) => (
+                                    <th>{dd}</th>
+                                ))
+                            }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                data.map((d, index) => (
+                                    <tr key={d.id}><td>{d.id}</td> <td>{d.name}</td> <td>{d.username}</td></tr>
+                                ))
+                            }
+                        </tbody>
+                    </Prdwrap>
+                </div>
 
                 {/* <Prdwrap>
                     <Prdlist listcolor="blue"><span>이름</span><span>회원</span></Prdlist>

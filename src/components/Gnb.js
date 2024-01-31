@@ -3,17 +3,22 @@ import './main.scss';
 import styled from 'styled-components';
 import { Route, Routes, Link } from 'react-router-dom';
 
+import { FaReact } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+import { AiFillPicture } from "react-icons/ai";
+import { AiFillMail } from "react-icons/ai";
+import { HiChartPie } from "react-icons/hi";
+
 import './main.scss';
 
-const Menu = styled.div`
-    position:absolute;
+const Menu = styled.aside`
+    position:sticky;
     top:0;
-    left:0;
-    width:20rem;
+    flex: 0 0 20rem;
+    width:auto;
     height:100vh;
     font-size:2rem;
-    background-color:#4c6ef5;
-    margin:0 auto;
     z-index:100;
 
     ul > li > a {
@@ -21,43 +26,55 @@ const Menu = styled.div`
         padding-left:2.5rem;
         padding-top:1.2rem;
         padding-bottom:1.2rem;
-        font-size:1.5rem;
+        font-size:1.25rem;
     }
 `;
 
 const Hometext = styled.div`
-  text-align:center;
+  text-align:left;
   height:6.3rem;
   line-height:6.3rem;
-  color:#fff;
+  color:inherit;
+  padding:0.5rem 1rem 0.5rem 1.5rem;
+
+  .iconlogo svg {
+    vertical-align:-0.25rem;
+  }
 `
+
 
 const arrGnb = () => {
     const arrList = [
       {
         id: 1,
         pagename: '가입',
-        pageurl: 'page1'
+        pageurl: 'page1',
+        iconname:FaUser
+
       },
       {
         id: 2,
         pagename: '회원목록 ',
-        pageurl: 'page2'
+        pageurl: 'page2',
+        iconname:AiFillSafetyCertificate
       },
       {
         id: 3,
         pagename: '탈퇴목록 : Axios API ',
-        pageurl: 'page3'
+        pageurl: 'page3',
+        iconname:AiFillPicture
       },
       {
         id: 4,
-        pagename: '재가입자',
-        pageurl: 'page4'
+        pagename: 'Communication',
+        pageurl: 'page4',
+        iconname:AiFillMail
       },
       {
         id: 5,
         pagename: 'QnA',
-        pageurl: 'page5'
+        pageurl: 'page5',
+        iconname:HiChartPie
       }
     ];
 
@@ -73,12 +90,14 @@ function Gnb() {
     return (
       <>
         <Menu>
-          <Hometext>HOME</Hometext>
+          <Hometext>
+            <Link className="iconlogo" > <FaReact /> HOME</Link>
+          </Hometext>
           <ul>
             {
               list.map(menu => (
                 <li key={menu.id} >
-                  <Link className="mlink" to={menu.pageurl}>{menu.pagename}</Link>
+                  <Link className="mlink" to={menu.pageurl}>{<menu.iconname/>} {menu.pagename}</Link>
                 </li>
               ))
 

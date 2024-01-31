@@ -9,16 +9,12 @@ const prdCardArea = styled.div`
 `;
 
 const Section = styled.div`
-    display:flex;
+    /* display:flex;
     align-items:flex-start;
-    justify-content:flex-start;
-    flex-direction:row;
-    overflow-y:hidden;
-    overflow-x:auto;
+    justify-content:flex-start; */
 
     .article {
-        flex:none;
-        width:800px;
+       
     }
 
     .article:nth-child(even) {

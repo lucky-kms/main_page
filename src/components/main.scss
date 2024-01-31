@@ -13,6 +13,26 @@ $m_orange:#f59f00;
 $m_ltblue:#d0ebff;
 $m_gray0:#f8f9fa;
 $m_gray:#ced4da;
+// body
+$m_body_bg:#edf2f9;
+// aside
+$m_aside_bg:#202B46;
+$m_aside_color:#8d98af;
+$m_aside_white:#ffffff;
+// btn
+$m_btn_white:#ffffff;
+$m_btn:#1B84FF;
+$m_btn_hover:#056EE9;
+// boxshadow
+$m_shadow:0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+
+// font-family
+$m_font:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+
+body {
+    font-family:$m_font;
+    background-color:$m_body_bg;
+}
 
 a {
     text-decoration: none;
@@ -20,11 +40,12 @@ a {
 // font-size
 .ft2 {
     font-size:2rem;
+    font-weight:bold;
     color:$m_black;
 }
 
 .ft1_5 {
-    font-size:1.5rem;
+    font-size:1.25rem;
     color:$m_black;
 }
 
@@ -37,16 +58,21 @@ a {
 .wrap {
     width:100vw;
     height:100vh;
-    background-color:$m_red6;
+    background-color:transparent;
     margin:0 auto;
-    overflow:hidden;
+
+    .mainInner {
+        display:flex;
+        align-items:flex-start;
+        justify-content:flex-start;
+        position:relative;
+    }
 }
 
+
 .section {
-    width:100vw;
-    height:100vh;
-    padding-left:20rem;
-    background-color:#efefef;
+    flex: 0 0 calc(100% - 20rem);
+    background-color:inherit;
     box-sizing:border-box;
 }
 
@@ -62,10 +88,35 @@ a {
     }
 }
 
+.itemGroup {
+    background-color:#fff;
+    border-radius:1rem;
+    border:1px solid #fff;
+    padding:1rem;
+    box-shadow:$m_shadow;
+}
+
 // menu
+aside {
+    background-color:$m_aside_bg;
+
+    a {
+        color:#8d98af
+    }
+
+    .iconlogo {
+        color:$m_aside_white;
+    }
+}
+
 .mlink {
-    color:$m_gray0;
-    background-color:$m_indigo8;
+    
+    background-color:$m_aside_bg;
+    transition:color .2s ease;
+
+    &:hover {
+        color:$m_aside_white;
+    }
 }
 
 // button
@@ -74,9 +125,13 @@ a {
     height:3rem;
     font-size:1.25rem;
     color:$m_gray0;
-    background-color:$m_indigo8;
+    background-color:$m_btn;
+    border-radius: .25rem;
+    transition:color .15s ease, 
+    background-color .15s ease-in-out, border-color .15s ease-in-out box-shadow .15s ease-in-out;
 
-    &:active {
-        background-color:$m_blue7;
+    &:hover {
+        color:$m_btn_white;
+        background-color:$m_btn_hover;
     }
 }

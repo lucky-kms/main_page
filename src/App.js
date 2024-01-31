@@ -7,8 +7,10 @@ import Contents from './components/Contents';
 function App() {
   return (
     <div className="wrap">
-      <Gnb />
-      <Contents />
+      <div className="mainInner">
+        <Gnb />
+        <Contents />
+      </div>
     </div>
     
     // <div className="App">
