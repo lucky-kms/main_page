@@ -26,6 +26,81 @@ $m_btn_hover:#056EE9;
 // boxshadow
 $m_shadow:0px 3px 4px 0px rgba(0, 0, 0, 0.03);
 
+// 공통 변수명 : 적용
+$nameTest: (mainFt);
+
+// 스타일 반복 가능 #1
+// common color
+$commonColor: (
+    subttl1: #e03131,
+    subttl2: #ff922b,
+    subttl3: #ffd43b,
+    subttl4: #69db7c,
+    subttl5: #74c0fc
+);
+$commonFs: (
+    subttl1: 1rem,
+    subttl2: 1.2rem,
+    subttl3: 1.53rem,
+    subttl4: 2rem,
+    subttl5: 2.5rem
+);
+
+
+// 스타일 반복 가능 #2
+@each $name, $color in $commonColor {
+    &.#{""+$name} {
+        background-color: #{$color};
+        color: white;
+        border: none;
+    }
+    &.line-#{""+$name} {
+        border: 1px solid #{$color};
+    }
+    &.color-#{""+$name} {
+        color: #{$color};
+    }
+}
+@each $fsName, $size in $commonFs {
+    &.#{""+$fsName} {
+        font-size: #{$size};
+        font-weight: bold;
+    }
+}
+
+// 스타일 재사용 #1
+@mixin buttonStyle($w, $h, $color, $fontsize ,$bgColor, $borderstyle) {
+    $maxWidth: calc(100% - $w);
+    width: $w;
+    height: $h;
+    max-width:$maxWidth;
+    color:$color;
+    font-size:$fontsize;
+    background:$bgColor;
+    border: $borderstyle;
+    border-radius: .25rem;
+    transition:color .15s ease, background-color .15s ease-in;
+    
+    &:hover {
+        background-color:$m_btn_hover;
+    }
+}
+// 스타일 재사용 #2
+.btn {
+    @include buttonStyle(5rem, 2rem, $m_btn_white, 1rem, $m_btn, 1px solid #ddd);
+
+    &.small {
+        color:#252F4A;
+        background-color:#F9F9F9;
+
+        &:hover{
+            color:#1B84FF;
+            background-color:#E9F3FF;
+            border-color:#E9F3FF;
+        }
+    }
+}
+
 // font-family
 $m_font:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 

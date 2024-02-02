@@ -13,7 +13,13 @@ function Page1(){
     return (
         <section className="section section4">
             <article className="article">
-                <h2 className="ft2">재가입자</h2>
+                <h2 className="ft2">Style Guide</h2>
+
+                <p className="subttl1">부제목</p>
+                <p className="subttl2">부제목</p>
+                <p className="subttl3">부제목</p>
+                <p className="subttl4">부제목</p>
+                <p className="subttl5">부제목</p>
             </article>
         </section>
     )

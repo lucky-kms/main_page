@@ -66,7 +66,7 @@ const arrGnb = () => {
       },
       {
         id: 4,
-        pagename: 'Communication',
+        pagename: 'Style Guide',
         pageurl: 'page4',
         iconname:AiFillMail
       },

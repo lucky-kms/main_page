@@ -120,24 +120,6 @@ const Prdlist = styled.tr`
 function Page1(){
     const [data, setData] = useState([]);
 
-    // table data title
-    const dataIdx = [
-        {
-            id:0,
-            name:'kms',
-            title:'tbl뽀개기',
-        },
-        {
-            id:1,
-            name:'mms',
-            title:'tbl 두번째',
-        }
-    ];
-
-    
-    const  nametest = Object.keys(dataIdx[0]);
-    console.log(nametest);
-   
     // const dataObj = data;
     // const objTitle = Object.keys(dataObj[0]);
     
@@ -154,15 +136,19 @@ function Page1(){
             }
     
             fetchData()
-            .then(res => setData(res));
+            .then(res => {setData(res)});
         }catch(e) {
             console.log('error : ', e);
         }
+
+        
+       // valedationTest();
     }
 
     useEffect(() => {
         apiCallback();
     },[]);
+
 
     return (
         <section className="section section2">
@@ -181,10 +167,40 @@ function Page1(){
                         </colgroup>
                         <thead>
                             <tr>
+                                {/* 
+                                    - cannot convert undefined or null to object 에러 -
+                                    1. const ex = null 인 경우 Object.keys(ex) 접근이 불가하다.
+                                    2. 1에 대한 예외 처리가 필요.
+
+                                    -React map 함수, if문 사용 -
+                                    map 함수는 값을 다시 계산(function 적용) 해서 되돌려주는 함수이다.
+                                    그러므로 map함수 안에서 
+                                    if문을 사용하는 것은 적절하지 않다.
+
+                                    특정한 값을 찾아서 코드를 적용시키고 싶다면 for문 혹은 filter 함수를 사용하게 나은 방법이다.
+                                    ex) 배열.filter(조건~ ).map()
+                                    
+                                    어떤 데이터 중에 원하는 데이터만을 뽑아내고 싶다면? 특정 조건을 만족하는 값만 반환
+                                    받기를 원할때 filter 사용
+                                    
+                                    ex)
+                                    let array = [3,5,11,0,9,'string'];
+                                    let result = array.filter((value) => value < 10)
+                                    console.log(result);
+
+                                   -리액트 조건문 종류-
+                                   if/else  = jsx return 문 안에서 사용 할 수 없다.
+
+                                   삼항연산자, && 리액트연산자 , switch case, enum
+                                
+                                */}
                             {
-                                nametest.map((dd, index) => (
-                                    <th>{dd}</th>
-                                ))
+                                (data == '' || data == null || data == undefined)? '' : 
+                                    Object.keys(data[0]).filter((val ,index) => index < 3).map((tt , index) => {
+                                           return  <th>{tt}</th>
+                                    }
+                                )
+                                        
                             }
                             </tr>
                         </thead>
