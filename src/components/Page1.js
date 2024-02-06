@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import './main.scss';
 import UserList from './UsersList';
@@ -45,25 +45,25 @@ function Page1(){
 
 
     const [users, setUsers] = useState([
-        {
-            id:1,
-            username:'minsoo',
-            email:'kmpluto83@gmail.com',
-            active: true
-        },
-        {
-            id:2,
-            username:'minsoo',
-            email:'kmpluto83@naver.com',
-            active: false
-        },
-        {
-            id:3,
-            username:'minsoo',
-            email:'kmpluto83@hanmail.net',
-            active: false
-        }
-    ]);
+            {
+                id:1,
+                username:'minsoo',
+                email:'kmpluto83@gmail.com',
+                active: true
+            },
+            {
+                id:2,
+                username:'minsoo',
+                email:'kmpluto83@naver.com',
+                active: false
+            },
+            {
+                id:3,
+                username:'minsoo',
+                email:'kmpluto83@hanmail.net',
+                active: false
+            }
+        ]);
     
     const nextId = useRef(4);
 
@@ -77,7 +77,7 @@ function Page1(){
         setUsers([...users, user]);
         // setUsers(users.concat(user));
 
-        console.log(nextId.current);
+        // console.log(nextId.current);
         setInputs({
             username:'',
             email:''

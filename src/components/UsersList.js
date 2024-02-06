@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 
@@ -102,17 +102,18 @@ const Prdlist = styled.tr`
 `
 
 function UserText({data, onRemove, ontoggle}) {
+    const {id, username, email, active} = data;
 
     return (
-        <Prdlist key={data.id}>
+        <Prdlist key={data}>
             <td style={{
             color: data.active? 'green':'black',
             cursor:'pointer',
             fontWeight:'bold',
         }}
-            onClick={() => ontoggle(data.id)}>{data.username}</td> (<td>{data.email}</td>)
+            onClick={() => ontoggle(id)}>{username}</td> (<td>{email}</td>)
             <td>
-                <button className="btn small" onClick={() => onRemove(data.id)}>삭제</button>
+                <button className="btn small" onClick={() => onRemove(id)}>삭제</button>
             </td>
         </Prdlist>
     )
@@ -120,6 +121,11 @@ function UserText({data, onRemove, ontoggle}) {
 
 function UserList({users, onRemove, ontoggle}) {
     
+   
+    useEffect(() => {
+        console.log(users);
+     }, [])
+ 
 
     return (
         <Prdwrap>  

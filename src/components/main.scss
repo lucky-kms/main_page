@@ -91,8 +91,8 @@ $commonFs: (
 
     &.small {
         color:#252F4A;
-        background-color:#F9F9F9;
-        border-color:#F9F9F9;
+        background-color:#F3F3F3;
+        border-color:#F3F3F3;
 
         &:hover{
             color:#1B84FF;
@@ -107,7 +107,9 @@ $m_font:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-
 
 body {
     font-family:$m_font;
-    background-color:$m_body_bg;
+    // background-color:$m_body_bg;
+    background: url(../images/react_main_bg.jpg)no-repeat 100% 100%;
+   
 }
 
 a {
@@ -181,6 +183,25 @@ aside {
     }
 
     .iconlogo {
+        color:$m_aside_white;
+    }
+}
+
+.logoRotate {
+    animation: logoRotateAni infinite 10s linear;
+}
+
+@keyframes logoRotateAni {
+    0% {
+        transform: rotate(0deg);
+        color:$m_aside_white;
+    }
+    50%{
+        transform: rotate(180deg);
+        color:$m_blue;
+    }
+    100% {
+        transform: rotate(360deg);
         color:$m_aside_white;
     }
 }

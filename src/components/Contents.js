@@ -35,7 +35,8 @@ const Topcon = styled.div`
     justify-content:space-between;
     padding:0 3rem;
     width:100%;
-    background-color:#fff;
+    /* background-color:#fff; */
+    backdrop-filter: blur(33px);
     height:5rem;
     box-shadow:0px 10px 30px 0px rgba(82, 63, 105, 0.05);
 `;

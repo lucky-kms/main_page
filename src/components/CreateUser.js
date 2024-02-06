@@ -12,19 +12,19 @@ const BtnSubmitArea = styled.div`
         width:20rem;
         height:3rem;
         padding:0 1rem;
-        background-color:#F9F9F9;
-        border:1px solid #F9F9F9;
-        border-color:#F9F9F9 !important;
+        background-color:#F5F5F5;
+        border:1px solid #F5F5F5;
+        border-color:#F5F5F5 !important;
         border-radius:.475rem;
         transition:background-color .15s ease;
     }
 
-    input[type='text']:placeholder {
-        color:#F9F9F9;
+    input[type='text']::placeholder {
+        color:#333;
     }
 
     input[type='text']:focus {
-        background-color:#F1F1F4;
+        background-color:#e1e1e1;
     }
 
     input[type='text'] + input {

@@ -91,7 +91,7 @@ function Gnb() {
       <>
         <Menu>
           <Hometext>
-            <Link className="iconlogo" > <FaReact /> HOME</Link>
+            <Link className="iconlogo" > <FaReact className="logoRotate" /> HOME</Link>
           </Hometext>
           <ul>
             {
