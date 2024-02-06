@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import './main.scss';
 import UserList from './UsersList';
 import CreateUser from './CreateUser';
+import TitleBox from './TitleBox2';
+
 
 const prdCardArea = styled.div`
     display:flex;
@@ -101,9 +103,11 @@ function Page1(){
         <Section className="section section1">
             <article className="article">
                 <h2 id="" className="ft2">가입</h2>
-
-                <UserList users={users}  onRemove={onRemove} ontoggle={ontoggle} />
-                <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
+                <div className="itemGroup">
+                    <TitleBox>사용 : REST API : fetch API</TitleBox>
+                    <UserList users={users}  onRemove={onRemove} ontoggle={ontoggle} />
+                    <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
+                </div> 
             </article>
             <article className="article">상품 페이지</article>
             <article className="article">상품 페이지</article>
