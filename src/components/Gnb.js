@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './main.scss';
 import styled from 'styled-components';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { AiFillMail } from "react-icons/ai";
 import { HiChartPie } from "react-icons/hi";
 
 import './main.scss';
+import Lnbsub from './Lnbsub';
 
 const Menu = styled.aside`
     position:sticky;
@@ -28,6 +29,22 @@ const Menu = styled.aside`
         padding-bottom:1.2rem;
         font-size:1.25rem;
     }
+
+    & .submenu {
+      display:block;
+      font-size:1rem;
+      padding:.5rem 0;
+      padding-left:3.4rem;
+    }
+
+    .active > a {
+        color: #fff;
+      }
+  
+    .active ul {
+      max-height:500px;
+    }
+   
 `;
 
 const Hometext = styled.div`
@@ -84,8 +101,18 @@ const arrGnb = () => {
 
 
 function Gnb() {
+    const [getToggle, setToggle] = useState('false');
+    const menuParent = useRef(null);
     // Gnb
     const list = arrGnb();
+
+    const toggleClass = (e) => {
+      
+      setToggle(getToggle == 'false'? 'true' : 'false')
+    
+      //setToggle('true');
+      console.log('클릭bool: ', getToggle, '_this:', menuParent)
+    }
 
     return (
       <>
@@ -96,13 +123,16 @@ function Gnb() {
           <ul>
             {
               list.map(menu => (
-                <li key={menu.id} >
+                <li ref={menuParent} key={menu.id} className={getToggle == 'true'? 'active':''} onClick={toggleClass}>
                   <Link className="mlink" to={menu.pageurl}>{<menu.iconname/>} {menu.pagename}</Link>
+
+                  <Lnbsub />
                 </li>
               ))
-
             }
-            {/* <li>
+            {
+            
+            /* <li>
                 <Link to="/page1" className="ft2" >메뉴1</Link>
             </li>
             <li>
