@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useMemo } from 'react';
 import styled from 'styled-components';
 
 
@@ -121,11 +121,17 @@ function UserText({data, onRemove, ontoggle}) {
 
 function UserList({users, onRemove, ontoggle}) {
     
-   
     useEffect(() => {
+        console.log('출력 로딩 시작');
         console.log(users);
-     }, [])
- 
+
+        return (
+            console.log('출력 로딩 종료'),
+            console.log(users)
+        )
+
+    }, [users]);
+    
 
     return (
         <Prdwrap>  
@@ -138,4 +144,4 @@ function UserList({users, onRemove, ontoggle}) {
     )
 }
 
-export default UserList;
+export default React.memo(UserList);

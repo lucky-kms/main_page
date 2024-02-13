@@ -47,7 +47,7 @@ const arrGnb = () => {
     const arrList = [
       {
         id: 1,
-        pagename: '가입',
+        pagename: '등록',
         pageurl: 'page1',
         iconname:FaUser
 

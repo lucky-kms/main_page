@@ -107,8 +107,8 @@ $m_font:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-
 
 body {
     font-family:$m_font;
-    // background-color:$m_body_bg;
-    background: url(../images/react_main_bg.jpg)no-repeat 100% 100%;
+    background-color:$m_body_bg;
+    // background: url(/images/react_main_bg.jpg)no-repeat 100% 100%;
    
 }
 
