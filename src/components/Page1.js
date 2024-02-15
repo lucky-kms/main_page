@@ -4,6 +4,7 @@ import './main.scss';
 import UserList from './UsersList';
 import CreateUser from './CreateUser';
 import TitleBox from './TitleBox2';
+import Modalpop from '../layerpopup/Modalpop';
 
 
 const prdCardArea = styled.div`
@@ -128,6 +129,7 @@ function Page1(){
 
     useEffect(() => {
         initCountUp();
+        onClick();
       }, []);
 
     async function initCountUp() {
@@ -240,27 +242,49 @@ function Page1(){
         // setUsers(users => users.filter(data => data.id != id));
     },[]);
 
-    
-
     const count = useMemo(() => CountActiveUser(users), [users]);
 
+    const [dialog, setVisible] = useState(false);
+
+    const onClick = () => {
+        console.log(('클릭 테스트'))
+        setVisible(true);
+    }
+
+    const onConfirm = () => {
+        console.log(('확인'))
+        setVisible(false)
+    }
+
+    const onCancle = () => {
+        console.log(('취소'))
+        setVisible(false)
+    }
+
     return (
-        <Section className="section section1">
-            <article className="article">
-                <h2 id="" className="ft2">등록</h2>
-                <div className="itemGroup">
-                    <TitleBox>컴포넌트 상태 관리 : reducer 분리 관리</TitleBox>
-                    <CountUser>활성사용자 수 : <span ref={countupRef} className="num">{count}</span></CountUser>
-                    <UserList users={users}  onRemove={onRemove} ontoggle={ontoggle} />
-                    <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
-                </div> 
-            </article>
-            <article className="article">상품 페이지</article>
-            <article className="article">상품 페이지</article>
-            <article className="article">상품 페이지</article>
-            <article className="article">상품 페이지</article>
-            <article className="article">상품 페이지</article>
-        </Section>
+        <>
+            <Section className="section section1">
+                <article className="article">
+                    <div>
+                        <h2 id="" className="ft2">등록</h2>
+                        {/* <button onClick={onClick}>모달팝업 노출 테스트</button> */}
+                    </div>
+                    <div className="itemGroup">
+                        <TitleBox>컴포넌트 상태 관리 : reducer 분리 관리</TitleBox>
+                        <CountUser>활성사용자 수 : <span ref={countupRef} className="num">{count}</span></CountUser>
+                        <UserList users={users}  onRemove={onRemove} ontoggle={ontoggle} />
+                        <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
+                    </div> 
+                </article>
+                <article className="article">상품 페이지</article>
+                <article className="article">상품 페이지</article>
+                <article className="article">상품 페이지</article>
+                <article className="article">상품 페이지</article>
+                <article className="article">상품 페이지</article>
+            </Section>
+
+            <Modalpop titletext="가입확인창" contenttext="가입 페이지 입니다." onConfirm={onConfirm} onCancle={onCancle} visible={dialog} />
+        </>
     )
 }
 

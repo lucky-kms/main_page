@@ -32,9 +32,21 @@ const Menu = styled.aside`
 
     & .submenu {
       display:block;
-      font-size:1rem;
-      padding:.5rem 0;
       padding-left:3.4rem;
+      padding-right:1.4rem;
+      a {
+        display:block;
+        font-size:1rem;
+        padding:.5rem;
+        border:1px solid transparent
+      }
+
+      a:hover {
+        color:#fff;
+        background-color:#056EE9;
+        border:1px solid #056EE9;
+        border-radius:.5rem;
+      }
     }
 
     .active > a {
@@ -46,6 +58,13 @@ const Menu = styled.aside`
     }
    
 `;
+
+const MenuNamearea = styled.div`
+    display: block;
+    height: calc(100% - 120px);
+    margin-bottom: 100px;
+    overflow-y: auto;
+`
 
 const Hometext = styled.div`
   text-align:left;
@@ -66,32 +85,37 @@ const arrGnb = () => {
         id: 1,
         pagename: '등록',
         pageurl: 'page1',
-        iconname:FaUser
+        iconname:FaUser,
+        menuactive:'false'
 
       },
       {
         id: 2,
         pagename: '회원목록 ',
         pageurl: 'page2',
-        iconname:AiFillSafetyCertificate
+        iconname:AiFillSafetyCertificate,
+        menuactive:'false'
       },
       {
         id: 3,
         pagename: '탈퇴목록 : Axios API ',
         pageurl: 'page3',
-        iconname:AiFillPicture
+        iconname:AiFillPicture,
+        menuactive:'false'
       },
       {
         id: 4,
         pagename: 'Style Guide',
         pageurl: 'page4',
-        iconname:AiFillMail
+        iconname:AiFillMail,
+        menuactive:'false'
       },
       {
         id: 5,
         pagename: 'QnA',
         pageurl: 'page5',
-        iconname:HiChartPie
+        iconname:HiChartPie,
+        menuactive:'false'
       }
     ];
 
@@ -101,17 +125,27 @@ const arrGnb = () => {
 
 
 function Gnb() {
-    const [getToggle, setToggle] = useState('false');
-    const menuParent = useRef(null);
     // Gnb
     const list = arrGnb();
+    const menuParent = useRef(null);
+    const [getToggle, setToggle] = useState(false);
+    
+    console.log(getToggle)
+    
 
-    const toggleClass = (e) => {
+    const toggleClass = (e, i ,id) => {
+      const _this = e.target;
+      const _index = i+1;
+      const _id = id;
       
-      setToggle(getToggle == 'false'? 'true' : 'false')
+      // setToggle(() => {
+          
+      // });
+      setToggle(getToggle == 'false'? 'true' : 'false');
+     
     
       //setToggle('true');
-      console.log('클릭bool: ', getToggle, '_this:', menuParent)
+      console.log('클릭bool: ', getToggle, '_this:', e, 'index:', i, 'id:', list)
     }
 
     return (
@@ -120,34 +154,36 @@ function Gnb() {
           <Hometext>
             <Link className="iconlogo" > <FaReact className="logoRotate" /> HOME</Link>
           </Hometext>
-          <ul>
-            {
-              list.map(menu => (
-                <li ref={menuParent} key={menu.id} className={getToggle == 'true'? 'active':''} onClick={toggleClass}>
-                  <Link className="mlink" to={menu.pageurl}>{<menu.iconname/>} {menu.pagename}</Link>
+          <MenuNamearea>
+            <ul>
+              {
+                list.map((menu, i) => (
+                  <li key={menu.id} className={getToggle == 'true'? 'active':''} onClick={e => toggleClass(e, i, menu.id)}>
+                    <Link className="mlink" to={menu.pageurl}>{<menu.iconname/>} {menu.pagename}</Link>
 
-                  <Lnbsub />
-                </li>
-              ))
-            }
-            {
-            
-            /* <li>
-                <Link to="/page1" className="ft2" >메뉴1</Link>
-            </li>
-            <li>
-                <Link to="/page2">메뉴2</Link>
-            </li>
-            <li>
-                <Link to="/page3">메뉴3</Link>
-            </li>
-            <li>
-                <Link to="/page4">메뉴4</Link>
-            </li>
-            <li>
-                <Link to="/page5">메뉴5</Link>
-            </li> */}
-          </ul>
+                    <Lnbsub />
+                  </li>
+                ))
+              }
+              {
+              
+              /* <li>
+                  <Link to="/page1" className="ft2" >메뉴1</Link>
+              </li>
+              <li>
+                  <Link to="/page2">메뉴2</Link>
+              </li>
+              <li>
+                  <Link to="/page3">메뉴3</Link>
+              </li>
+              <li>
+                  <Link to="/page4">메뉴4</Link>
+              </li>
+              <li>
+                  <Link to="/page5">메뉴5</Link>
+              </li> */}
+            </ul>
+          </MenuNamearea>
         </Menu>
       </>
     )
