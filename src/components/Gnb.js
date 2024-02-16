@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './main.scss';
 import styled from 'styled-components';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -130,9 +130,8 @@ function Gnb() {
     const menuParent = useRef(null);
     const [getToggle, setToggle] = useState(false);
     
-    console.log(getToggle)
+    // console.log(getToggle)
     
-
     const toggleClass = (e, i ,id) => {
       const _this = e.target;
       const _index = i+1;
@@ -145,7 +144,7 @@ function Gnb() {
      
     
       //setToggle('true');
-      console.log('클릭bool: ', getToggle, '_this:', e, 'index:', i, 'id:', list)
+      // console.log('클릭bool: ', getToggle, '_this:', e, 'index:', i, 'id:', list)
     }
 
     return (
