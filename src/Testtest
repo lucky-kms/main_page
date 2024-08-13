@@ -1,0 +1,100 @@
+import React from 'react';
+import { TreeView, TreeItem } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Checkbox, FormControlLabel } from '@mui/material';
+
+interface TreeNode {
+  nodeId: string;
+  labelText: string;
+  showCheckbox: boolean;
+  children?: TreeNode[];  // children은 선택적(optional)입니다.
+}
+
+// CustomTreeItem 컴포넌트에 대한 TypeScript 인터페이스 정의
+interface CustomTreeItemProps {
+  nodeId: string;
+  labelText: string;
+  showCheckbox: boolean;
+  children?: React.ReactNode;
+}
+
+const CustomTreeItem: React.FC<CustomTreeItemProps> = ({
+  nodeId,
+  labelText,
+  showCheckbox,
+  children,
+}) => {
+  return (
+    <TreeItem
+      nodeId={nodeId}
+      label={
+        showCheckbox ? (
+          <FormControlLabel
+            control={<Checkbox />}
+            label={labelText}
+            onClick={(e) => e.stopPropagation()}  // 클릭 시 트리 항목 확장/축소 방지
+          />
+        ) : (
+          labelText
+        )
+      }
+    >
+      {children}
+    </TreeItem>
+  );
+};
+
+// renderTree 함수 정의
+const renderTree = (nodes: TreeNode[]): React.ReactNode =>
+  nodes.map((node) => (
+    <CustomTreeItem
+      key={node.nodeId}
+      nodeId={node.nodeId}
+      labelText={node.labelText}
+      showCheckbox={node.showCheckbox}
+    >
+      {Array.isArray(node.children) ? renderTree(node.children) : null}
+    </CustomTreeItem>
+  ));
+
+const RichTreeViewExample: React.FC = () => {
+  const treeItems: TreeNode[] = [
+    {
+      nodeId: '1',
+      labelText: 'Applications',
+      showCheckbox: true,
+      children: [
+        {
+          nodeId: '2',
+          labelText: 'Calendar',
+          showCheckbox: true,
+          children: [
+            { nodeId: '3', labelText: 'Sub Calendar 1', showCheckbox: false },
+            { nodeId: '4', labelText: 'Sub Calendar 2', showCheckbox: false },
+          ],
+        },
+        {
+          nodeId: '5',
+          labelText: 'Chrome',
+          showCheckbox: true,
+        },
+      ],
+    },
+  ];
+
+  return (
+    <TreeView
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      multiSelect
+      slots={{
+        item: CustomTreeItem,
+      }}
+    >
+      {renderTree(treeItems)}
+    </TreeView>
+  );
+};
+
+export default RichTreeViewExample;
