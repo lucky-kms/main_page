@@ -1,0 +1,97 @@
+import React from 'react';
+import { TreeView, TreeItem } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Checkbox, FormControlLabel } from '@mui/material';
+
+interface TreeNode {
+  nodeId: string;
+  labelText: string;
+  children?: TreeNode[];  // children은 선택적(optional)입니다.
+}
+
+// CustomTreeItem 컴포넌트를 화살표 함수로 정의
+const CustomTreeItem: React.FC<CustomTreeItemProps> = ({
+  nodeId,
+  labelText,
+  checkboxSelection,
+  children,
+}) => (
+  <TreeItem
+    nodeId={nodeId}
+    label={
+      checkboxSelection ? (
+        <FormControlLabel
+          control={<Checkbox />}
+          label={labelText}
+          onClick={(e) => e.stopPropagation()}  // 클릭 시 트리 항목 확장/축소 방지
+        />
+      ) : (
+        labelText
+      )
+    }
+  >
+    {children}
+  </TreeItem>
+);
+
+interface CustomTreeItemProps {
+  nodeId: string;
+  labelText: string;
+  checkboxSelection: boolean;
+  children?: React.ReactNode;
+}
+
+// renderTree 함수를 화살표 함수로 정의
+const renderTree = (nodes: TreeNode[], checkboxSelection: boolean): React.ReactNode =>
+  nodes.map((node) => (
+    <CustomTreeItem
+      key={node.nodeId}
+      nodeId={node.nodeId}
+      labelText={node.labelText}
+      checkboxSelection={checkboxSelection} // 부모 노드에서 체크박스 여부 결정
+    >
+      {Array.isArray(node.children) ? renderTree(node.children, false) : null}
+      {/* 자식 노드는 checkboxSelection을 false로 설정하여 체크박스가 표시되지 않도록 함 */}
+    </CustomTreeItem>
+  ));
+
+// RichTreeViewExample 컴포넌트를 화살표 함수로 정의
+const RichTreeViewExample: React.FC = () => {
+  const treeItems: TreeNode[] = [
+    {
+      nodeId: '1',
+      labelText: 'Applications',
+      children: [
+        {
+          nodeId: '2',
+          labelText: 'Calendar',
+          children: [
+            { nodeId: '3', labelText: 'Sub Calendar 1' },
+            { nodeId: '4', labelText: 'Sub Calendar 2' },
+          ],
+        },
+        {
+          nodeId: '5',
+          labelText: 'Chrome',
+        },
+      ],
+    },
+  ];
+
+  return (
+    <TreeView
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      multiSelect
+      checkboxSelection={true} // TreeView 자체에 checkboxSelection 옵션을 true로 설정
+      slots={{
+        item: CustomTreeItem,
+      }}
+    >
+      {renderTree(treeItems, true)}
+    </TreeView>
+  );
+};
+
+export default RichTreeViewExample;
