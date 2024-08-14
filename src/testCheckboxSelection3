@@ -1,0 +1,94 @@
+import React from 'react';
+import { TreeView, TreeItem } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+interface TreeNode {
+  nodeId: string;
+  labelText: string;
+  children?: TreeNode[];  // children은 선택적(optional)입니다.
+}
+
+// TreeViewWithItemsProps 컴포넌트 정의
+interface TreeViewWithItemsProps {
+  nodeId: string;
+  labelText: string;
+  checkboxSelection: boolean;
+  children?: React.ReactNode;
+}
+
+const TreeViewWithItems: React.FC<TreeViewWithItemsProps> = ({
+  nodeId,
+  labelText,
+  checkboxSelection,
+  children,
+}) => (
+  <TreeItem
+    nodeId={nodeId}
+    label={labelText}
+  >
+    {children}
+  </TreeItem>
+);
+
+// renderTree 함수를 Prop으로 전달받아 사용하는 TreeView 컴포넌트 정의
+interface CustomTreeViewProps {
+  items: TreeNode[];
+  renderTree: (nodes: TreeNode[]) => React.ReactNode;
+}
+
+const CustomTreeView: React.FC<CustomTreeViewProps> = ({ items, renderTree }) => {
+  return (
+    <TreeView
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      multiSelect
+      checkboxSelection={true}
+    >
+      {renderTree(items)}  // 전달받은 renderTree 함수를 사용하여 트리 항목을 렌더링
+    </TreeView>
+  );
+};
+
+// RichTreeViewExample 컴포넌트에서 renderTree를 Prop으로 전달
+const RichTreeViewExample: React.FC = () => {
+  const treeItems: TreeNode[] = [
+    {
+      nodeId: '1',
+      labelText: 'Applications',
+      children: [
+        {
+          nodeId: '2',
+          labelText: 'Calendar',
+          children: [
+            { nodeId: '3', labelText: 'Sub Calendar 1' },
+            { nodeId: '4', labelText: 'Sub Calendar 2' },
+          ],
+        },
+        {
+          nodeId: '5',
+          labelText: 'Chrome',
+        },
+      ],
+    },
+  ];
+
+  // renderTree 함수를 정의
+  const renderTree = (nodes: TreeNode[]): React.ReactNode =>
+    nodes.map((node) => (
+      <TreeViewWithItems
+        key={node.nodeId}
+        nodeId={node.nodeId}
+        labelText={node.labelText}
+        checkboxSelection={true}
+      >
+        {Array.isArray(node.children) ? renderTree(node.children) : null}
+      </TreeViewWithItems>
+    ));
+
+  return (
+    <CustomTreeView items={treeItems} renderTree={renderTree} />
+  );
+};
+
+export default RichTreeViewExample;
