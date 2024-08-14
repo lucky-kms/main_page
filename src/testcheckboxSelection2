@@ -1,0 +1,94 @@
+import React from 'react';
+import { TreeView, TreeItem } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Checkbox, FormControlLabel } from '@mui/material';
+
+interface TreeNode {
+  nodeId: string;
+  labelText: string;
+  children?: TreeNode[];  // children은 선택적(optional)입니다.
+}
+
+// TreeViewWithItemsProps 컴포넌트 정의
+interface TreeViewWithItemsProps {
+  nodeId: string;
+  labelText: string;
+  checkboxSelection: boolean;
+  children?: React.ReactNode;
+}
+
+const TreeViewWithItems: React.FC<TreeViewWithItemsProps> = ({
+  nodeId,
+  labelText,
+  checkboxSelection,
+  children,
+}) => (
+  <TreeItem
+    nodeId={nodeId}
+    label={
+      checkboxSelection ? (
+        <FormControlLabel
+          control={<Checkbox />}
+          label={labelText}
+          onClick={(e) => e.stopPropagation()}  // 클릭 시 트리 항목 확장/축소 방지
+        />
+      ) : (
+        labelText
+      )
+    }
+  >
+    {children}
+  </TreeItem>
+);
+
+// renderTree 함수 정의
+const renderTree = (nodes: TreeNode[]): React.ReactNode =>
+  nodes.map((node) => (
+    <TreeViewWithItems
+      key={node.nodeId}
+      nodeId={node.nodeId}
+      labelText={node.labelText}
+      checkboxSelection={true} // 부모 노드에서 체크박스 여부 결정
+    >
+      {Array.isArray(node.children) ? renderTree(node.children) : null}
+    </TreeViewWithItems>
+  ));
+
+const RichTreeViewExample: React.FC = () => {
+  const treeItems: TreeNode[] = [
+    {
+      nodeId: '1',
+      labelText: 'Applications',
+      children: [
+        {
+          nodeId: '2',
+          labelText: 'Calendar',
+          children: [
+            { nodeId: '3', labelText: 'Sub Calendar 1' },
+            { nodeId: '4', labelText: 'Sub Calendar 2' },
+          ],
+        },
+        {
+          nodeId: '5',
+          labelText: 'Chrome',
+        },
+      ],
+    },
+  ];
+
+  return (
+    <TreeView
+      items={treeItems}  // treeItems를 items prop으로 전달
+      checkboxSelection={true}  // checkboxSelection을 true로 설정
+      slots={{
+        endIcon: undefined,  // endIcon 슬롯을 undefined로 설정
+        item: TreeViewWithItems,  // 커스텀 TreeItem 컴포넌트를 item 슬롯으로 설정
+      }}
+    >
+      {renderTree(treeItems)}
+    </TreeView>
+  );
+};
+
+export default RichTreeViewExample;
