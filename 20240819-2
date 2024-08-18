@@ -1,0 +1,18 @@
+import React from 'react';
+import ScrollspyMenu from './ScrollspyMenu';
+
+const App: React.FC = () => {
+  const menuItems = [
+    { id: 'section1', label: 'Section 1' },
+    { id: 'section2', label: 'Section 2' },
+    { id: 'section3', label: 'Section 3' },
+  ];
+
+  return (
+    <div className="App">
+      <ScrollspyMenu menuItems={menuItems} activeClass="active" />
+    </div>
+  );
+};
+
+export default App;
