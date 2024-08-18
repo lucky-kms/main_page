@@ -1,0 +1,76 @@
+import React, { useRef, useState, useEffect, forwardRef } from 'react';
+
+type MenuItem = {
+  id: string;
+  label: string;
+};
+
+type ScrollspyMenuProps = {
+  menuItems: MenuItem[];
+  activeClass?: string;
+};
+
+const ScrollspyMenu = forwardRef<HTMLDivElement, ScrollspyMenuProps>(
+  ({ menuItems, activeClass = 'active' }, ref) => {
+    const [activeId, setActiveId] = useState<string>('');
+
+    const sectionsRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    const handleScroll = () => {
+      const offset = 100; // 스크롤 오프셋, 원하는 값으로 조정하세요
+      const current = sectionsRefs.current.find((section) => {
+        return (
+          section &&
+          section.offsetTop <= window.scrollY + offset &&
+          section.offsetTop + section.offsetHeight > window.scrollY + offset
+        );
+      });
+
+      if (current) {
+        setActiveId(current.id);
+      }
+    };
+
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
+    return (
+      <div className="scrollspy-container" ref={ref}>
+        <ul className="scrollspy-menu">
+          {menuItems.map((item, index) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                className={activeId === item.id ? activeClass : ''}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="scrollspy-sections">
+          {menuItems.map((item, index) => (
+            <div
+              key={item.id}
+              id={item.id}
+              ref={(el) => (sectionsRefs.current[index] = el)}
+              style={{ padding: '100px 0' }} // 예제용 스타일
+            >
+              <h2>{item.label}</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse varius enim in eros elementum tristique.
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+);
+
+export default ScrollspyMenu;
