@@ -1,0 +1,117 @@
+import React, { useState, useEffect, useRef } from "react";
+import { Tabs, Tab, Box } from "@mui/material";
+import Section1 from "./components/Section1";
+import Section2 from "./components/Section2";
+import Section3 from "./components/Section3";
+import Section4 from "./components/Section4";
+import Section5 from "./components/Section5";
+
+const ScrollSpyTabs: React.FC = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [isTabClick, setIsTabClick] = useState(false);
+
+  // 각 섹션의 ref를 직접 지정
+  const section1Ref = useRef<HTMLDivElement | null>(null);
+  const section2Ref = useRef<HTMLDivElement | null>(null);
+  const section3Ref = useRef<HTMLDivElement | null>(null);
+  const section4Ref = useRef<HTMLDivElement | null>(null);
+  const section5Ref = useRef<HTMLDivElement | null>(null);
+
+  const sectionRefs = [
+    section1Ref,
+    section2Ref,
+    section3Ref,
+    section4Ref,
+    section5Ref,
+  ];
+
+  const handleScroll = () => {
+    if (isTabClick) return; // 탭 클릭 시 스크롤 이벤트 무시
+
+    const scrollPosition = window.scrollY + 100; // 탭 메뉴 높이 보정
+
+    let foundIndex = -1;
+
+    for (let i = 0; i < sectionRefs.length; i++) {
+      const ref = sectionRefs[i].current;
+      if (ref) {
+        const top = ref.offsetTop - 100; // 탭 메뉴 높이 보정
+        const bottom = top + ref.offsetHeight;
+
+        if (scrollPosition >= top && scrollPosition < bottom) {
+          foundIndex = i;
+          break;
+        }
+      }
+    }
+
+    // 페이지의 끝에 도달하면 마지막 탭을 활성화
+    const bottomOfPage =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 2; // 오차를 줄이기 위해 2px 추가
+    if (bottomOfPage) {
+      foundIndex = sectionRefs.length - 1;
+    }
+
+    if (foundIndex !== -1 && foundIndex !== activeTab) {
+      setActiveTab(foundIndex);
+    }
+  };
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setIsTabClick(true); // 탭 클릭 상태로 전환
+    setActiveTab(newValue);
+    const section = sectionRefs[newValue].current;
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 100, // 탭 메뉴 높이만큼 보정
+        behavior: "smooth",
+      });
+
+      // 스크롤이 완료된 후에 스크롤 이벤트를 다시 활성화
+      setTimeout(() => {
+        setIsTabClick(false);
+      }, 500); // 스크롤 애니메이션 시간(500ms)과 동일하게 설정
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [activeTab, isTabClick]);
+
+  return (
+    <Box>
+      {/* Sticky position 적용 */}
+      <Box sx={{ position: "sticky", top: 0, zIndex: 1000, backgroundColor: "white" }}>
+        <Tabs value={activeTab} onChange={handleTabChange} variant="scrollable">
+          <Tab label="Section 1" />
+          <Tab label="Section 2" />
+          <Tab label="Section 3" />
+          <Tab label="Section 4" />
+          <Tab label="Section 5" />
+        </Tabs>
+      </Box>
+      <Box>
+        <div ref={section1Ref} style={{ padding: "50px 0", minHeight: "100px" }}>
+          <Section1 />
+        </div>
+        <div ref={section2Ref} style={{ padding: "50px 0", minHeight: "100px" }}>
+          <Section2 />
+        </div>
+        <div ref={section3Ref} style={{ padding: "50px 0", minHeight: "100px" }}>
+          <Section3 />
+        </div>
+        <div ref={section4Ref} style={{ padding: "50px 0", minHeight: "100px" }}>
+          <Section4 />
+        </div>
+        <div ref={section5Ref} style={{ padding: "50px 0", minHeight: "100px" }}>
+          <Section5 />
+        </div>
+      </Box>
+    </Box>
+  );
+};
+
+export default ScrollSpyTabs;
